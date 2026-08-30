@@ -14,10 +14,10 @@
 
 - Preserve the upstream MIT license and attribution.
 - Keep `origin` pointed at `https://github.com/nab0y4enko/codex-orchestrator.git`.
-- Use Sol for architecture and acceptance, Luna medium/high for bounded work, and Terra high only for difficult bounded work.
+- Use the parent orchestrator—normally Sol, or the disclosed user-approved substitute—for architecture and acceptance, Luna medium/high for bounded work, and Terra high only for difficult bounded work.
 - Announce model and effort choices before implementation or dispatch.
 - Use `gpt-5.6-sol` medium for the parent by default and dispatch workers through the exact named profile.
-- Keep workers as leaf executors; only Sol may dispatch additional subagents.
+- Keep workers as leaf executors; only the parent orchestrator—normally Sol, or the disclosed user-approved substitute—may dispatch additional subagents.
 - Plan and audit tests from the changed behavior and risk surface.
 - Run only related tests and checks by default.
 - Never run a full test suite unless the user explicitly requests or approves it.
@@ -142,7 +142,7 @@ Add:
 
 Encode:
 
-- Sol quality ownership and delegation economics;
+- parent-orchestrator quality ownership and delegation economics;
 - routing criteria for Luna medium, Luna high, Terra high, and stronger Sol review;
 - model-plan announcement before implementation;
 - exact worker package fields;
@@ -151,7 +151,7 @@ Encode:
 - full-suite user authorization boundary;
 - parallelism and non-overlapping write scopes;
 - escalation ladder;
-- worker evidence and Sol final acceptance.
+- worker evidence and parent-orchestrator final acceptance.
 
 - [ ] **Step 3: Strengthen delegation and worker profiles**
 

@@ -35,7 +35,7 @@ Choose models by uncertainty, risk, and task shape—not by file count or a refl
 | Requirements, architecture, decomposition, test-plan review | Sol medium | Sol high for ambiguity, security-sensitive design, migrations, public interfaces, or difficult review |
 | Small mechanical changes, documentation, and focused test updates | `luna-worker` (Luna medium) | `luna-worker-high` when bounded implementation needs nontrivial reasoning |
 | Normal substantive bounded implementation | `luna-worker-high` (Luna high) | `terra-worker` when a sound package still requires difficult debugging, exploration, or cross-cutting reasoning |
-| Difficult bounded implementation or debugging | `terra-worker` (Terra high) | Return to Sol when the unresolved issue is architectural or product-level |
+| Difficult bounded implementation or debugging | `terra-worker` (Terra high) | Return to the parent orchestrator when the unresolved issue is architectural or product-level |
 | Integration and final acceptance | Sol medium | Sol high when review complexity or failure impact is high |
 | Exceptional quality-first work | No automatic default | Sol xhigh only with a concrete reason |
 

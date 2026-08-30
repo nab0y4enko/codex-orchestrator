@@ -24,7 +24,7 @@ The source snapshot is the upstream `main` tip observed on 2026-08-30 (`cc2012f7
 
 ### Quality ownership
 
-Sol owns requirements, architecture, decomposition, test-plan review, integration, and final acceptance. Implementation workers may validate their own work but cannot accept the overall result. Architectural or product ambiguity always returns to Sol rather than being delegated to a stronger implementation worker.
+The parent orchestrator—normally Sol, or the disclosed user-approved substitute—owns requirements, architecture, decomposition, test-plan review, integration, and final acceptance. Implementation workers may validate their own work but cannot accept the overall result. Architectural or product ambiguity always returns to the parent orchestrator rather than being delegated to a stronger implementation worker.
 
 ### Cost-aware routing
 
@@ -35,7 +35,7 @@ Select models by uncertainty, risk, and task shape rather than file count alone:
 | Requirements, architecture, decomposition, test-plan review | Sol medium | Sol high for ambiguity, security-sensitive design, migrations, public interfaces, or difficult review |
 | Small mechanical implementation, documentation, and focused test updates | `luna-worker` (Luna medium) | `luna-worker-high` when implementation requires nontrivial bounded reasoning |
 | Normal substantive bounded implementation | `luna-worker-high` (Luna high) | `terra-worker` when debugging, exploration, or cross-cutting implementation exceeds Luna's reliable scope |
-| Difficult bounded implementation or debugging | `terra-worker` (Terra high) | Return to Sol when the unresolved issue is architectural or product-level |
+| Difficult bounded implementation or debugging | `terra-worker` (Terra high) | Return to the parent orchestrator when the unresolved issue is architectural or product-level |
 | Integration and final acceptance | Sol medium | Sol high when failure impact or review complexity is high |
 | Exceptional quality-first work | No automatic default | Sol xhigh only with a concrete reason |
 
@@ -52,7 +52,7 @@ The parent session should use `gpt-5.6-sol` at medium effort by default. Dispatc
 
 ### Delegation economics
 
-Delegation has context and coordination overhead. Sol may perform trivial, tightly bounded work directly when creating and reviewing a worker package would cost more than the task. Non-trivial implementation should be delegated when the architecture and acceptance criteria are resolved.
+Delegation has context and coordination overhead. The parent orchestrator may perform trivial, tightly bounded work directly when creating and reviewing a worker package would cost more than the task. Non-trivial implementation should be delegated when the architecture and acceptance criteria are resolved.
 
 Parallel workers are allowed only for genuinely independent packages with non-overlapping write scopes. Sequential dependencies and shared files remain sequential.
 
@@ -64,7 +64,7 @@ Parallel workers are allowed only for genuinely independent packages with non-ov
 4. If a Luna attempt fails, first inspect whether the package was ambiguous, too broad, or missing context.
 5. Tighten or split an inadequate package before changing models.
 6. Use Terra high only when the package is sound and the remaining difficulty is bounded implementation, debugging, exploration, or cross-cutting reasoning.
-7. Return architecture, product, contract, or acceptance ambiguity to Sol.
+7. Return architecture, product, contract, or acceptance ambiguity to the parent orchestrator.
 8. Reserve stronger Sol reasoning for genuinely difficult planning or review, not to compensate for poor decomposition.
 
 ## Model Plan Announcement
@@ -118,7 +118,7 @@ If approval is not available, the agent completes focused validation and reports
 
 ### Final missed-test audit
 
-Before final acceptance, Sol reviews:
+Before final acceptance, the parent orchestrator reviews:
 
 - whether every changed behavior has proportionate test coverage;
 - whether worker-discovered risks require additional focused tests;
@@ -126,7 +126,7 @@ Before final acceptance, Sol reviews:
 - whether the exact planned focused commands ran and passed;
 - whether full-suite coverage was requested, approved, run, or intentionally not run.
 
-Workers must report test additions, exact commands, exact results, omissions, and remaining risks. Worker self-validation is evidence for Sol, not final acceptance.
+Workers must report test additions, exact commands, exact results, omissions, and remaining risks. Worker self-validation is evidence for the parent orchestrator, not final acceptance.
 
 ## Architecture and Files
 
@@ -160,7 +160,7 @@ Each delegated package must contain:
 
 A package must be rejected or split when architecture is unresolved, acceptance criteria are unclear, write scopes overlap, the test plan is missing, or the worker would need to guess.
 
-Workers are leaf executors and may not spawn or delegate to another subagent. Any need for additional expertise or work returns to Sol. Before dispatch, Sol announces the exact named profile and confirms it matches the package's `MODEL` field.
+Workers are leaf executors and may not spawn or delegate to another subagent. Any need for additional expertise or work returns to the parent orchestrator. Before dispatch, the parent announces the exact named profile and confirms it matches the package's `MODEL` field.
 
 ## Example Design
 
@@ -176,18 +176,18 @@ The example teaches users to state product constraints and acceptance criteria w
 
 ## Data Flow
 
-1. Sol reads the request and relevant repository context.
-2. Sol resolves product and architecture ambiguity.
-3. Sol maps changed behavior, risk, and relevant tests.
-4. Sol creates bounded packages and chooses model/effort per package.
-5. Sol announces the model plan before implementation.
+1. The parent orchestrator reads the request and relevant repository context.
+2. The parent resolves product and architecture ambiguity.
+3. The parent maps changed behavior, risk, and relevant tests.
+4. The parent creates bounded packages and chooses model/effort per package.
+5. The parent orchestrator announces the model plan before implementation.
 6. Independent, non-overlapping packages may run in parallel; all others run sequentially.
 7. Luna medium handles small/mechanical work; Luna high handles substantive bounded work.
 8. Terra high handles only difficult bounded work after package quality is confirmed.
 9. Workers run focused validation and return structured evidence.
-10. Sol reviews diffs, test evidence, and missed-test risk.
-11. Sol requests user approval before any full-suite run that was not already requested.
-12. Sol performs final acceptance.
+10. The parent reviews diffs, test evidence, and missed-test risk.
+11. The parent requests user approval before any full-suite run that was not already requested.
+12. The parent orchestrator performs final acceptance.
 
 ## Error Handling and Safety
 
