@@ -1,8 +1,8 @@
 # Codex Orchestrator
 
-A lightweight, cost-aware Codex multi-agent template that keeps architecture and final acceptance with Sol, routes bounded implementation to Luna, and reserves Terra for difficult bounded work.
+A lightweight, cost-aware Codex multi-agent template that keeps architecture and final acceptance with the parent orchestrator—normally Sol—routes bounded implementation to Luna, and reserves Terra for difficult bounded work.
 
-> Sol resolves the problem and accepts the result. Luna implements bounded work. Terra handles bounded work that genuinely needs stronger independent reasoning.
+> The parent orchestrator resolves the problem and accepts the result. Luna implements bounded work. Terra handles bounded work that genuinely needs stronger independent reasoning.
 
 ## Quick start
 
@@ -78,7 +78,7 @@ Before final acceptance, the parent orchestrator performs a missed-test audit an
 ## Workflow
 
 ```text
-Sol
+Parent orchestrator (normally Sol)
  ↓
 understand requirements, architecture, risks, and test impact
  ↓
@@ -92,7 +92,7 @@ bounded implementation + focused validation
  ↓
 Terra high only for difficult bounded work
  ↓
-Sol
+Parent orchestrator (normally Sol)
  ↓
 diff review + missed-test audit + final acceptance
 ```
