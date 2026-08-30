@@ -19,7 +19,7 @@ Name the selected model and reasoning effort:
 - `luna-worker-high` (Luna high) for substantive bounded implementation.
 - `terra-worker` (Terra high) only for difficult bounded implementation or debugging after package quality is confirmed.
 
-Architecture, product decisions, integration, and final acceptance remain with Sol.
+Architecture, product decisions, integration, and final acceptance remain with the parent orchestrator.
 
 ## RATIONALE
 
@@ -70,7 +70,7 @@ Set one of:
 - `not authorized` — default; the worker must not run the full test suite;
 - `authorized by user: <request context>` — the user explicitly requested or approved it.
 
-If the worker discovers that a full suite may be necessary, it must stop that validation step and return the reason to Sol. Sol asks the user before any full-suite run.
+If the worker discovers that a full suite may be necessary, it must stop that validation step and return the reason to the parent orchestrator. The parent asks the user before any full-suite run.
 
 ## RETURN
 
@@ -87,11 +87,11 @@ Return only:
 9. remaining risks, questions, or blockers.
 
 Workers do not perform final acceptance.
-Workers are leaf executors: they must not spawn or delegate to another subagent. They return any need for additional expertise or work to Sol.
+Workers are leaf executors: they must not spawn or delegate to another subagent. They return any need for additional expertise or work to the parent orchestrator—normally Sol, or the disclosed user-approved substitute.
 
 ## Pre-dispatch gate
 
-Before spawning the worker, Sol must announce the selected model, reasoning effort, exact named custom-agent profile, task, and short rationale. The dispatched profile must match `MODEL`; do not rely on an inherited worker model or effort.
+Before spawning the worker, the parent orchestrator must announce the selected model, reasoning effort, exact named custom-agent profile, task, and short rationale. The dispatched profile must match `MODEL`; do not rely on an inherited worker model or effort.
 
 If the selected profile is unavailable, disclose the actual available model and effort before implementation. Ask the user before substituting a route that materially changes expected quality or cost.
 

@@ -71,7 +71,7 @@ Parallel workers are allowed only for genuinely independent packages with non-ov
 
 Before implementation begins, the orchestrator must briefly state which model is selected for each planned implementation or review stage and why. A concise form is sufficient:
 
-> Model plan: Sol medium for planning and final review; Luna high for the bounded implementation; Terra high only if the approved package requires difficult debugging.
+> Model plan: parent `gpt-5.6-sol` at medium for planning and final review; `luna-worker-high` (`gpt-5.6-luna`, high) for the bounded implementation; `terra-worker` (`gpt-5.6-terra`, high) only if the approved package requires difficult debugging.
 
 The announcement must:
 

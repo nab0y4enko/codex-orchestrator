@@ -1,6 +1,6 @@
 # Agent orchestration
 
-The parent Sol agent is the orchestrator and final authority. Sol owns requirements, architecture, decomposition, model routing, test-plan review, integration, review, and final acceptance.
+The parent orchestrator—normally Sol, or a disclosed user-approved substitute—is the final authority. The parent owns requirements, architecture, decomposition, model routing, test-plan review, integration, review, and final acceptance.
 
 Run the parent session with `gpt-5.6-sol` at medium reasoning by default. Worker profiles do not configure the parent. If the active parent is not Sol or a required profile is unavailable, state the actual model and effort before implementation. Do not claim a route that is not active, and ask the user before substituting a route that materially changes expected quality or cost.
 
@@ -17,7 +17,7 @@ Select models by uncertainty, risk, and task shape.
 
 Do not automatically use the strongest model or reasoning level. Improve decomposition and context before escalating.
 
-Trivial, tightly bounded work may stay with Sol when delegation overhead would exceed the task. Delegate non-trivial implementation after architecture and acceptance criteria are resolved.
+Trivial, tightly bounded work may stay with the parent orchestrator when delegation overhead would exceed the task. Delegate non-trivial implementation after architecture and acceptance criteria are resolved.
 
 ## Model plan announcement
 
@@ -25,7 +25,7 @@ Before implementation or worker dispatch, briefly explain the model plan. Name t
 
 Example:
 
-> Model plan: Sol medium for planning and final review; Luna high for the bounded implementation; Terra high only if the approved package still requires difficult debugging.
+> Model plan: parent `gpt-5.6-sol` at medium for planning and final review; `luna-worker-high` (`gpt-5.6-luna`, high) for the bounded implementation; `terra-worker` (`gpt-5.6-terra`, high) only if the approved package still requires difficult debugging.
 
 Announce a material routing change before dispatch. Do not repeat an unchanged model plan for every package.
 
@@ -47,7 +47,7 @@ For non-trivial implementation:
 10. Review returned diffs and validation evidence.
 11. Run or verify the planned focused validation.
 12. Perform a final missed-test audit.
-13. Sol performs final acceptance.
+13. The parent orchestrator performs final acceptance.
 
 Do not delegate unresolved architecture, product decisions, contracts, or acceptance criteria.
 
@@ -88,7 +88,7 @@ Do not run the full test suite unless the user explicitly requests or approves i
 
 If the user does not approve a recommended full-suite run, complete focused validation and report the remaining risk. Do not imply full-suite coverage.
 
-Before final acceptance, Sol confirms that every changed behavior has proportionate coverage, worker-discovered risks have been considered, relevant tests were not missed, and every applicable focused command ran and passed. An unresolved validation failure blocks acceptance unless the user explicitly accepts the risk.
+Before final acceptance, the parent orchestrator confirms that every changed behavior has proportionate coverage, worker-discovered risks have been considered, relevant tests were not missed, and every applicable focused command ran and passed. An unresolved validation failure blocks acceptance unless the user explicitly accepts the risk.
 
 The final report must state whether a full-suite run was requested, authorized, executed, or intentionally not run. It must also state any remaining validation risk without implying broader coverage than the evidence supports.
 
@@ -109,7 +109,7 @@ Workers must:
 - return concise evidence rather than raw transcripts;
 - never claim overall final acceptance.
 
-If a worker needs another specialty, model, or work package, it returns that need to Sol as a blocker or escalation request. Only Sol may create or dispatch additional packages.
+If a worker needs another specialty, model, or work package, it returns that need to the parent orchestrator as a blocker or escalation request. Only the parent orchestrator may create or dispatch additional packages.
 
 ## Parallelism
 
@@ -117,7 +117,7 @@ Parallelize only genuinely independent packages with non-overlapping write scope
 
 ## Review and escalation
 
-Worker self-validation is evidence, not acceptance. Sol reviews diffs, contracts, tests, commands, omissions, and remaining risks.
+Worker self-validation is evidence, not acceptance. The parent orchestrator reviews diffs, contracts, tests, commands, omissions, and remaining risks.
 
 If a worker fails:
 
@@ -126,13 +126,13 @@ If a worker fails:
 3. retry with the same Luna tier when appropriate;
 4. move from Luna medium to Luna high for nontrivial bounded reasoning;
 5. use Terra high only when the package is sound and the difficulty remains bounded implementation or debugging;
-6. return architecture, product, contract, or acceptance ambiguity to Sol;
+6. return architecture, product, contract, or acceptance ambiguity to the parent orchestrator;
 7. use stronger Sol reasoning only when planning or review itself is difficult.
 
 Do not escalate models to compensate for poor decomposition.
 
 ## Context discipline
 
-Keep Sol focused on user requirements, architecture, decisions, plan, model routing, worker summaries, diffs, focused validation evidence, missed-test risk, and acceptance.
+Keep the parent orchestrator focused on user requirements, architecture, decisions, plan, model routing, worker summaries, diffs, focused validation evidence, missed-test risk, and acceptance.
 
 Pass workers the smallest sufficient context. Require structured summaries rather than long transcripts.

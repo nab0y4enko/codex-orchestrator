@@ -50,7 +50,7 @@ Current OpenAI guidance describes Sol as the flagship model for complex reasonin
 
 Before implementation or worker dispatch, briefly explain the selected model and effort for each active stage.
 
-> Model plan: Sol medium for planning and final review because the architecture is already understood; Luna high for the bounded implementation because it requires nontrivial code reasoning; Terra high only if difficult bounded debugging remains after the package is verified.
+> Model plan: parent `gpt-5.6-sol` at medium for planning and final review because the architecture is already understood; `luna-worker-high` (`gpt-5.6-luna`, high) for the bounded implementation because it requires nontrivial code reasoning; `terra-worker` (`gpt-5.6-terra`, high) only if difficult bounded debugging remains after the package is verified.
 
 Update the model plan before dispatch if routing changes materially. Repeating it for every package is unnecessary when the route is unchanged.
 
@@ -73,7 +73,7 @@ Run only focused tests related to the planned change by default. This can includ
 
 Do not run the full test suite unless the user explicitly requests or approves it. If shared infrastructure, global configuration, migrations, core interfaces, broad dependency changes, or unexplained failures make a full run necessary, explain the reason and ask first. Without approval, run focused validation and report the remaining risk.
 
-Before final acceptance, Sol performs a missed-test audit and confirms every applicable focused check ran and passed. An unresolved failure blocks acceptance unless the user explicitly accepts the risk. The final report states whether a full-suite run was requested, authorized, executed, or intentionally not run, and names any remaining risk.
+Before final acceptance, the parent orchestrator performs a missed-test audit and confirms every applicable focused check ran and passed. An unresolved failure blocks acceptance unless the user explicitly accepts the risk. The final report states whether a full-suite run was requested, authorized, executed, or intentionally not run, and names any remaining risk.
 
 ## Workflow
 
@@ -105,7 +105,7 @@ Parallelize only genuinely independent packages with non-overlapping write scope
 2. Use Luna medium for small mechanical work and Luna high for substantive bounded implementation.
 3. If Luna struggles, first tighten or split the package.
 4. Use Terra high only when the package is sound and the remaining problem is difficult bounded implementation or debugging.
-5. Return architectural, product, contract, or acceptance ambiguity to Sol.
+5. Return architectural, product, contract, or acceptance ambiguity to the parent orchestrator.
 6. Use stronger Sol reasoning only when planning or review itself is genuinely difficult.
 
 ## Worker package
@@ -148,6 +148,6 @@ See `examples/example-prompt.md`.
 2. Select the cheapest model and effort that reliably fits the task.
 3. Keep work packages small, complete, and independently testable.
 4. Plan tests from changed behavior instead of defaulting to broad suites.
-5. Let workers validate their implementation, but keep final acceptance with Sol.
+5. Let workers validate their implementation, but keep final acceptance with the parent orchestrator—normally Sol.
 6. Improve decomposition before escalating model strength.
 7. Parallelize only independent, non-overlapping work.
