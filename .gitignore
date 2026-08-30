@@ -1,1 +1,47 @@
+# macOS and other operating-system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100/
+.Trashes/
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editors and IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.#*
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.local
+
+# Logs, temporary files, and generated output
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+dist/
+build/
+coverage/
+
+# Common language tooling artifacts
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local worktrees
 .worktrees/
