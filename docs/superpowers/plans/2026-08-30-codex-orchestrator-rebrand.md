@@ -16,6 +16,8 @@
 - Keep `origin` pointed at `https://github.com/nab0y4enko/codex-orchestrator.git`.
 - Use Sol for architecture and acceptance, Luna medium/high for bounded work, and Terra high only for difficult bounded work.
 - Announce model and effort choices before implementation or dispatch.
+- Use `gpt-5.6-sol` medium for the parent by default and dispatch workers through the exact named profile.
+- Keep workers as leaf executors; only Sol may dispatch additional subagents.
 - Plan and audit tests from the changed behavior and risk surface.
 - Run only related tests and checks by default.
 - Never run a full test suite unless the user explicitly requests or approves it.
@@ -219,12 +221,14 @@ for filename, expected in profiles.items():
     assert "focused" in instructions
     assert "full suite" in instructions
     assert "final acceptance" in instructions
+    assert "do not spawn or delegate" in instructions
 
 agents = Path("templates/AGENTS.md").read_text().lower()
 for phrase in [
     "model plan", "test impact", "focused validation", "full test suite",
     "explicitly requests", "missed-test", "luna medium", "luna high",
     "terra high", "final acceptance",
+    "gpt-5.6-sol", "exact named custom-agent profile", "ran and passed",
 ]:
     assert phrase in agents, phrase
 
@@ -233,6 +237,7 @@ for field in [
     "## GOAL", "## MODEL", "## RATIONALE", "## CONTEXT", "## SCOPE",
     "## DO NOT TOUCH", "## CONTRACT", "## TEST IMPACT", "## DONE WHEN",
     "## VALIDATION", "## FULL SUITE", "## RETURN",
+    "## Pre-dispatch gate",
 ]:
     assert field in skill, field
 

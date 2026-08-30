@@ -2,15 +2,17 @@
 
 The parent Sol agent is the orchestrator and final authority. Sol owns requirements, architecture, decomposition, model routing, test-plan review, integration, review, and final acceptance.
 
+Run the parent session with `gpt-5.6-sol` at medium reasoning by default. Worker profiles do not configure the parent. If the active parent is not Sol or a required profile is unavailable, state the actual model and effort before implementation. Do not claim a route that is not active, and ask the user before substituting a route that materially changes expected quality or cost.
+
 ## Model routing
 
 Select models by uncertainty, risk, and task shape.
 
 - **Sol medium**: default for requirements, architecture, decomposition, test-plan review, integration, and final acceptance.
 - **Sol high**: ambiguous or security-sensitive architecture, migrations, public interfaces, difficult integration, or high-risk review.
-- **Luna medium**: small mechanical changes, documentation, focused test updates, and low-risk bounded implementation.
-- **Luna high**: normal substantive bounded implementation requiring nontrivial code reasoning.
-- **Terra high**: fallback for a sound bounded package that still requires difficult debugging, exploration, or cross-cutting implementation.
+- **`luna-worker` (Luna medium)**: small mechanical changes, documentation, focused test updates, and low-risk bounded implementation.
+- **`luna-worker-high` (Luna high)**: normal substantive bounded implementation requiring nontrivial code reasoning.
+- **`terra-worker` (Terra high)**: fallback for a sound bounded package that still requires difficult debugging, exploration, or cross-cutting implementation.
 - **Sol xhigh**: exceptional quality-first planning or review with a concrete reason.
 
 Do not automatically use the strongest model or reasoning level. Improve decomposition and context before escalating.
@@ -26,6 +28,8 @@ Example:
 > Model plan: Sol medium for planning and final review; Luna high for the bounded implementation; Terra high only if the approved package still requires difficult debugging.
 
 Announce a material routing change before dispatch. Do not repeat an unchanged model plan for every package.
+
+Dispatch through the exact named custom-agent profile selected above. Do not rely on an inherited worker model or reasoning effort.
 
 ## Workflow
 
@@ -84,12 +88,15 @@ Do not run the full test suite unless the user explicitly requests or approves i
 
 If the user does not approve a recommended full-suite run, complete focused validation and report the remaining risk. Do not imply full-suite coverage.
 
-Before final acceptance, Sol confirms that every changed behavior has proportionate coverage, worker-discovered risks have been considered, relevant tests were not missed, and the exact planned commands ran.
+Before final acceptance, Sol confirms that every changed behavior has proportionate coverage, worker-discovered risks have been considered, relevant tests were not missed, and every applicable focused command ran and passed. An unresolved validation failure blocks acceptance unless the user explicitly accepts the risk.
+
+The final report must state whether a full-suite run was requested, authorized, executed, or intentionally not run. It must also state any remaining validation risk without implying broader coverage than the evidence supports.
 
 ## Worker rules
 
 Workers must:
 
+- act as leaf executors and never spawn or delegate to another subagent;
 - make the smallest defensible change;
 - preserve the parent's architecture and contracts;
 - follow existing repository patterns;
@@ -101,6 +108,8 @@ Workers must:
 - stop and report ambiguity instead of guessing;
 - return concise evidence rather than raw transcripts;
 - never claim overall final acceptance.
+
+If a worker needs another specialty, model, or work package, it returns that need to Sol as a blocker or escalation request. Only Sol may create or dispatch additional packages.
 
 ## Parallelism
 

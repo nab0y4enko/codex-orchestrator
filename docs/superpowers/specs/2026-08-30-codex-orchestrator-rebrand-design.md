@@ -33,9 +33,9 @@ Select models by uncertainty, risk, and task shape rather than file count alone:
 | Work | Default model and effort | Escalation |
 |---|---|---|
 | Requirements, architecture, decomposition, test-plan review | Sol medium | Sol high for ambiguity, security-sensitive design, migrations, public interfaces, or difficult review |
-| Small mechanical implementation, documentation, and focused test updates | Luna medium | Luna high when implementation requires nontrivial bounded reasoning |
-| Normal substantive bounded implementation | Luna high | Terra high when debugging, exploration, or cross-cutting implementation exceeds Luna's reliable scope |
-| Difficult bounded implementation or debugging | Terra high | Return to Sol when the unresolved issue is architectural or product-level |
+| Small mechanical implementation, documentation, and focused test updates | `luna-worker` (Luna medium) | `luna-worker-high` when implementation requires nontrivial bounded reasoning |
+| Normal substantive bounded implementation | `luna-worker-high` (Luna high) | `terra-worker` when debugging, exploration, or cross-cutting implementation exceeds Luna's reliable scope |
+| Difficult bounded implementation or debugging | `terra-worker` (Terra high) | Return to Sol when the unresolved issue is architectural or product-level |
 | Integration and final acceptance | Sol medium | Sol high when failure impact or review complexity is high |
 | Exceptional quality-first work | No automatic default | Sol xhigh only with a concrete reason |
 
@@ -47,6 +47,8 @@ This follows current official OpenAI guidance: Sol is the flagship choice for co
 - https://developers.openai.com/api/docs/guides/latest-model
 
 The repository will describe relative roles rather than hard-code prices, because prices and availability can change.
+
+The parent session should use `gpt-5.6-sol` at medium effort by default. Dispatch must use the exact named worker profile rather than inherited model settings. If the active parent or selected profile is unavailable, the orchestrator discloses the actual model and effort before implementation and asks before a substitution that materially changes expected quality or cost.
 
 ### Delegation economics
 
@@ -157,6 +159,8 @@ Each delegated package must contain:
 - `RETURN`: changed files, summary, tests added or updated, exact commands and results, omitted tests, assumptions, risks, and blockers.
 
 A package must be rejected or split when architecture is unresolved, acceptance criteria are unclear, write scopes overlap, the test plan is missing, or the worker would need to guess.
+
+Workers are leaf executors and may not spawn or delegate to another subagent. Any need for additional expertise or work returns to Sol. Before dispatch, Sol announces the exact named profile and confirms it matches the package's `MODEL` field.
 
 ## Example Design
 

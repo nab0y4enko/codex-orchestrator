@@ -24,6 +24,8 @@ your-repo/
 
 If your project already has an `AGENTS.md`, merge the orchestration policy with the project-specific instructions instead of replacing them.
 
+Run the parent Codex session with `gpt-5.6-sol` at medium reasoning by default. The files under `.codex/agents/` configure workers; they do not change the parent session model. If Sol or a named worker profile is unavailable, disclose the actual model and effort before implementation and ask before substituting a route that materially changes expected quality or cost.
+
 ## Model routing
 
 Choose models by uncertainty, risk, and task shape—not by file count or a reflex to use the strongest model.
@@ -31,9 +33,9 @@ Choose models by uncertainty, risk, and task shape—not by file count or a refl
 | Work | Default | Escalate when |
 |---|---|---|
 | Requirements, architecture, decomposition, test-plan review | Sol medium | Sol high for ambiguity, security-sensitive design, migrations, public interfaces, or difficult review |
-| Small mechanical changes, documentation, and focused test updates | Luna medium | Luna high when bounded implementation needs nontrivial reasoning |
-| Normal substantive bounded implementation | Luna high | Terra high when a sound package still requires difficult debugging, exploration, or cross-cutting reasoning |
-| Difficult bounded implementation or debugging | Terra high | Return to Sol when the unresolved issue is architectural or product-level |
+| Small mechanical changes, documentation, and focused test updates | `luna-worker` (Luna medium) | `luna-worker-high` when bounded implementation needs nontrivial reasoning |
+| Normal substantive bounded implementation | `luna-worker-high` (Luna high) | `terra-worker` when a sound package still requires difficult debugging, exploration, or cross-cutting reasoning |
+| Difficult bounded implementation or debugging | `terra-worker` (Terra high) | Return to Sol when the unresolved issue is architectural or product-level |
 | Integration and final acceptance | Sol medium | Sol high when review complexity or failure impact is high |
 | Exceptional quality-first work | No automatic default | Sol xhigh only with a concrete reason |
 
@@ -52,6 +54,8 @@ Before implementation or worker dispatch, briefly explain the selected model and
 
 Update the model plan before dispatch if routing changes materially. Repeating it for every package is unnecessary when the route is unchanged.
 
+Dispatch through the exact named custom-agent profile from the routing table. Do not rely on an inherited worker model or effort.
+
 ## Testing policy
 
 Plan tests from the requested change, affected boundaries, and regression risks.
@@ -69,7 +73,7 @@ Run only focused tests related to the planned change by default. This can includ
 
 Do not run the full test suite unless the user explicitly requests or approves it. If shared infrastructure, global configuration, migrations, core interfaces, broad dependency changes, or unexplained failures make a full run necessary, explain the reason and ask first. Without approval, run focused validation and report the remaining risk.
 
-Before final acceptance, Sol performs a missed-test audit and confirms the exact planned checks ran.
+Before final acceptance, Sol performs a missed-test audit and confirms every applicable focused check ran and passed. An unresolved failure blocks acceptance unless the user explicitly accepts the risk. The final report states whether a full-suite run was requested, authorized, executed, or intentionally not run, and names any remaining risk.
 
 ## Workflow
 

@@ -15,9 +15,9 @@ State one precise outcome. If the sentence contains unrelated outcomes, split th
 
 Name the selected model and reasoning effort:
 
-- Luna medium for small mechanical or low-risk bounded work.
-- Luna high for substantive bounded implementation.
-- Terra high only for difficult bounded implementation or debugging after package quality is confirmed.
+- `luna-worker` (Luna medium) for small mechanical or low-risk bounded work.
+- `luna-worker-high` (Luna high) for substantive bounded implementation.
+- `terra-worker` (Terra high) only for difficult bounded implementation or debugging after package quality is confirmed.
 
 Architecture, product decisions, integration, and final acceptance remain with Sol.
 
@@ -80,12 +80,20 @@ Return only:
 2. concise implementation summary;
 3. tests added or updated;
 4. exact focused validation commands and exact results;
-5. newly discovered test gaps;
-6. tests omitted and why;
-7. assumptions;
-8. remaining risks, questions, or blockers.
+5. full-suite authorization and execution status;
+6. newly discovered test gaps;
+7. tests omitted and why;
+8. assumptions;
+9. remaining risks, questions, or blockers.
 
 Workers do not perform final acceptance.
+Workers are leaf executors: they must not spawn or delegate to another subagent. They return any need for additional expertise or work to Sol.
+
+## Pre-dispatch gate
+
+Before spawning the worker, Sol must announce the selected model, reasoning effort, exact named custom-agent profile, task, and short rationale. The dispatched profile must match `MODEL`; do not rely on an inherited worker model or effort.
+
+If the selected profile is unavailable, disclose the actual available model and effort before implementation. Ask the user before substituting a route that materially changes expected quality or cost.
 
 ## Package quality gate
 
